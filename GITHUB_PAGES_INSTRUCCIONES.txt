@@ -1,0 +1,2 @@
+Sube este proyecto a GitHub. Luego activa Settings > Pages > Build and deployment > GitHub Actions.
+El workflow incluido hará npm install/build y publicará automáticamente el sitio.

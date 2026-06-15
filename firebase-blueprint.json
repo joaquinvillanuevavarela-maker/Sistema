@@ -1,0 +1,196 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profiles representing Valentina (Admin) or Students",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID of the user"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the user"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The full name of the user"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "student"],
+          "description": "The authorization role of the user"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the user account was created"
+        }
+      },
+      "required": ["userId", "email", "displayName", "role", "createdAt"]
+    },
+    "Package": {
+      "title": "Package",
+      "description": "Class packages purchased by students",
+      "type": "object",
+      "properties": {
+        "packageId": {
+          "type": "string",
+          "description": "Unique ID of the package"
+        },
+        "studentId": {
+          "type": "string",
+          "description": "UID of the student"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Name of the student"
+        },
+        "studentEmail": {
+          "type": "string",
+          "description": "Email of the student"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["10_classes", "20_classes", "unlimited"],
+          "description": "The package type"
+        },
+        "pricePaid": {
+          "type": "number",
+          "description": "The price paid for the package"
+        },
+        "totalClasses": {
+          "type": "number",
+          "description": "Total classes included (e.g. 10, 20, 999 for unlimited)"
+        },
+        "remainingClasses": {
+          "type": "number",
+          "description": "Remaining classes"
+        },
+        "purchaseDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the package was purchased"
+        },
+        "expiryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the package expires"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "expiring", "expired", "dormant"],
+          "description": "Derived or set status of the package"
+        }
+      },
+      "required": ["packageId", "studentId", "studentName", "studentEmail", "type", "pricePaid", "totalClasses", "remainingClasses", "purchaseDate", "expiryDate", "status"]
+    },
+    "Class": {
+      "title": "Class",
+      "description": "Yoga classes available in the weekly schedule",
+      "type": "object",
+      "properties": {
+        "classId": {
+          "type": "string",
+          "description": "Unique class identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the class (e.g. Vinyasa, Hatha, Ashtanga)"
+        },
+        "instructor": {
+          "type": "string",
+          "description": "Name of the instructor (Sofía, Matías, Camila, Lucas)"
+        },
+        "dayOfWeek": {
+          "type": "string",
+          "enum": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+          "description": "Day of the week for this class"
+        },
+        "time": {
+          "type": "string",
+          "description": "Start time of the class (e.g., '08:30', '19:00')"
+        },
+        "capacity": {
+          "type": "number",
+          "description": "Maximum student capacity"
+        }
+      },
+      "required": ["classId", "name", "instructor", "dayOfWeek", "time", "capacity"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Sessions reserved by students",
+      "type": "object",
+      "properties": {
+        "bookingId": {
+          "type": "string",
+          "description": "Unique booking identifier"
+        },
+        "classId": {
+          "type": "string",
+          "description": "Reference ID of the class"
+        },
+        "className": {
+          "type": "string",
+          "description": "Yoga style or class name"
+        },
+        "instructor": {
+          "type": "string",
+          "description": "Name of the instructor"
+        },
+        "studentId": {
+          "type": "string",
+          "description": "UID of the student"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Name of the student"
+        },
+        "studentEmail": {
+          "type": "string",
+          "description": "Email of the student"
+        },
+        "classDate": {
+          "type": "string",
+          "description": "Date of the class session (YYYY-MM-DD)"
+        },
+        "classTime": {
+          "type": "string",
+          "description": "Time slot of the class session (HH:MM)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["booked", "attended", "cancelled"],
+          "description": "Reservation status. Changing to 'attended' triggers class count reduction logic."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when booking was made"
+        }
+      },
+      "required": ["bookingId", "classId", "className", "instructor", "studentId", "studentName", "studentEmail", "classDate", "classTime", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Stores user account configuration and roles securely"
+    },
+    "/packages/{packageId}": {
+      "schema": "Package",
+      "description": "Tracks class packages purchased by students"
+    },
+    "/classes/{classId}": {
+      "schema": "Class",
+      "description": "Stores the weekly yoga class template directory"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Stores the active, completed, or cancelled student reservations"
+    }
+  }
+}

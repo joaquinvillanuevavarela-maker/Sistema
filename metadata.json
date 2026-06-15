@@ -1,0 +1,8 @@
+{
+  "name": "Proyecto Yoga Studio Valentina",
+  "description": "Sistema de gestión para estudio de yoga con control de paquetes, reservas en tiempo real y métricas avanzadas para Valentina.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
