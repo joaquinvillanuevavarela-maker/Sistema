@@ -33,7 +33,7 @@ interface FirestoreErrorInfo {
 }
 
 // Check if firebase is configured with credentials
-const hasFirebaseCredentials = firebaseConfig && firebaseConfig.apiKey && firebaseConfig.apiKey !== "";
+const hasFirebaseCredentials = false;
 
 let app;
 let auth: any = null;
